@@ -1,10 +1,7 @@
 package com.cgi.dentistapp.service;
 
 import com.cgi.dentistapp.entity.DentistVisitEntity;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public interface VisitRepository extends CrudRepository<DentistVisitEntity, Long> {
+public interface VisitRepository extends JpaRepository<DentistVisitEntity, Long> {
 }
-

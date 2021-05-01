@@ -1,5 +1,7 @@
 package com.cgi.dentistapp.entity;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -7,28 +9,22 @@ import java.util.Date;
 @Table(name = "dentist_visit")
 public class DentistVisitEntity {
 
-    //THIS WILL DETERMINE WHAT WILL GO WHERE
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    //My code
-    @Column(name = "NAME", length = 50, nullable = false)
-    private String name;
-
     @Column(name = "DATE", nullable = false)
     private Date date;
-    //TODO implementation
+
+    /*@Column(name = "DENTIST_ID", nullable = false)
+    private String name;*/
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "dentist_id")
+    private DentistEntity dentistEntity;
 
     public String getName() {
-        return name;
-    }
-
-    //Ref: https://www.w3schools.com/java/java_encapsulation.asp
-    //Didn't remember setter exactly
-    public String setName(String newName) {
-        return this.name = newName;
+        return dentistEntity.getName();
     }
 
     public Date getDate() {
@@ -37,5 +33,17 @@ public class DentistVisitEntity {
 
     public Date setDate(Date date){
         return this.date = date;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public DentistEntity getDentistEntity() {
+        return dentistEntity;
+    }
+
+    public void setDentistEntity(DentistEntity dentistEntity) {
+        this.dentistEntity = dentistEntity;
     }
 }

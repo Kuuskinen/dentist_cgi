@@ -2,10 +2,20 @@
 <body>
 <form action="#" th:action="@{/}" th:object="${dentistVisitDTO}" method="post">
     <table>
+        <!-- THIS WAS BEFORE
         <tr>
             <td><p th:text="#{dentist.name}">dentist.name</p></td>
             <td><input type="text" th:field="*{dentistName}"/></td>
             <td th:if="${#fields.hasErrors('dentistName')}" th:errors="*{dentistName}">name.error</td>
+        </tr>
+        -->
+        <tr>
+            <td><p th:text="#{dentist.name}">dentist.name</p></td>
+            <td>
+                <select th:field="*{dentistId}">
+                    <option th:each="dentist : ${dentists}" th:value="${dentist.id}" th:text="${dentist.name}"></option>
+                </select>
+            </td>
         </tr>
         <tr>
             <td><p th:text="#{visit.date}">visit.date</p></td>

@@ -1,0 +1,28 @@
+<html>
+<head>
+    <title>Registreeringud</title>
+    <script type="text/javascript" th:src="@{visitMethods.js}"></script>
+</head>
+<body>
+<p>THE EAGLE HAS WINGS</p>
+<!--REF: https://www.baeldung.com/thymeleaf-list -->
+<table>
+    <tr>
+        <th>
+            <td><p>ID</p></td>
+            <td><p th:text="#{dentist.name}">dentist.name</p></td>
+            <td><p th:text="#{visit.date}">visit.date</p></td>
+        </th>
+    </tr>
+    <tr th:if="${visits == null or visits.isEmpty()}">
+        <td><span th:text="#{none.visit}"></span></td>
+    </tr>
+    <tr th:each="visit : ${visits}">
+        <td><span th:text="${visit.id}"></span></td>
+        <td><span th:text="${visit.date}"></span></td>
+        <td><span th:text="${visit.dentistEntity.name}"></span></td>
+        <td><button th:text="#{delete.visit}" th:onclick="'javascript:deleteVisit(' + ${visit.id} + ')'"></button></td>
+    </tr>
+</table>
+</body>
+</html>

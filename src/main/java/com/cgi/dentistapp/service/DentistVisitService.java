@@ -1,8 +1,10 @@
 package com.cgi.dentistapp.service;
 
+import com.cgi.dentistapp.entity.DentistEntity;
 import com.cgi.dentistapp.entity.DentistVisitEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.transaction.Transactional;
 import java.util.Date;
@@ -16,16 +18,22 @@ public class DentistVisitService {
     private VisitRepository visitRepository;
 
     @Transactional
-    public void addVisit(String dentistName, Date visitTime) {
+    public void addVisit(Long dentistId, Date visitTime) {
         DentistVisitEntity dentistVisitEntity = new DentistVisitEntity();
-        System.out.println("SAVING STUFF");
-        dentistVisitEntity.setName(dentistName);
+        dentistVisitEntity.setDentistEntity(new DentistEntity());
+        dentistVisitEntity.getDentistEntity().setId(dentistId);
         dentistVisitEntity.setDate(visitTime);
         visitRepository.save(dentistVisitEntity);
-        List<DentistVisitEntity> yo = (List<DentistVisitEntity>) visitRepository.findAll();
-        System.out.println("I WILL NOW SPILL MY SECRETS");
-        System.out.println(dentistVisitEntity.getName());
-        System.out.println(dentistVisitEntity.getDate());
-        //TODO implementation
+    }
+
+    public List<DentistVisitEntity> getAllVisits() {
+        return visitRepository.findAll();
+    }
+
+    public void deleteVisit(String id) {
+        System.out.println("RECEIVED");
+        System.out.println(id);
+        long idAsLong = Long.valueOf(id);
+        visitRepository.delete(idAsLong);
     }
 }

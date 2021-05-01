@@ -8,18 +8,37 @@ import java.util.Date;
 
 public class DentistVisitDTO {
 
-    @Size(min = 1, max = 50)
     String dentistName;
+
+    @NotNull
+    Long dentistId;
 
     @NotNull
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     Date visitTime;
 
     public DentistVisitDTO() {
+
     }
 
-    public DentistVisitDTO(String dentistName, Date visitTime) {
-        this.dentistName = dentistName;
+    public DentistVisitDTO(Long dentistId, Date visitTime) {
+        this.dentistId = dentistId;
+        this.visitTime = visitTime;
+    }
+
+    public Long getDentistId() {
+        return dentistId;
+    }
+
+    public void setDentistId(long dentistId) {
+        this.dentistId = dentistId;
+    }
+
+    public Date getVisitTime() {
+        return visitTime;
+    }
+
+    public void setVisitTime(Date visitTime) {
         this.visitTime = visitTime;
     }
 
@@ -29,13 +48,5 @@ public class DentistVisitDTO {
 
     public void setDentistName(String dentistName) {
         this.dentistName = dentistName;
-    }
-
-    public Date getVisitTime() {
-        return visitTime;
-    }
-
-    public void setVisitTime(Date visitTime) {
-        this.visitTime = visitTime;
     }
 }
