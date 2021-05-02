@@ -1,5 +1,6 @@
 package com.cgi.dentistapp.service;
 
+import com.cgi.dentistapp.dto.DentistVisitDTO;
 import com.cgi.dentistapp.entity.DentistEntity;
 import com.cgi.dentistapp.entity.DentistVisitEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ public class DentistVisitService {
     @Autowired
     private VisitRepository visitRepository;
 
+    @Autowired
+    private DentistService dentistService;
+
     @Transactional
     public void addVisit(Long dentistId, Date visitTime) {
         DentistVisitEntity dentistVisitEntity = new DentistVisitEntity();
@@ -31,9 +35,24 @@ public class DentistVisitService {
     }
 
     public void deleteVisit(String id) {
-        System.out.println("RECEIVED");
+        System.out.println("DELETE VISIT");
         System.out.println(id);
         long idAsLong = Long.valueOf(id);
         visitRepository.delete(idAsLong);
+    }
+
+    public DentistVisitEntity visitToChange(String id) {
+        long idAsLong = Long.valueOf(id);
+        return visitRepository.findOne(idAsLong);
+    }
+
+    public void changeVisit(Long visitId, DentistVisitDTO dentistVisitDTO) {
+        DentistVisitEntity dentistVisitEntity = visitRepository.findOne(visitId);
+
+        dentistVisitEntity.setDate(dentistVisitDTO.getVisitTime());
+        DentistEntity newDentist = dentistService.getDentist(dentistVisitDTO.getDentistId());
+        
+        dentistVisitEntity.setDentistEntity(newDentist);
+        visitRepository.save(dentistVisitEntity);
     }
 }

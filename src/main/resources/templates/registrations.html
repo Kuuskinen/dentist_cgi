@@ -22,6 +22,7 @@
         <td><span th:text="${visit.date}"></span></td>
         <td><span th:text="${visit.dentistEntity.name}"></span></td>
         <td><button th:text="#{delete.visit}" th:onclick="'javascript:deleteVisit(' + ${visit.id} + ')'"></button></td>
+        <td><a th:href="@{'/change_registration/' + ${visit.id}}" th:text="#{update.visit}"></a></td>
     </tr>
 </table>
 </body>

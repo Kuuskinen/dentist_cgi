@@ -3,12 +3,13 @@ package com.cgi.dentistapp.dto;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.Date;
 
 public class DentistVisitDTO {
 
     String dentistName;
+
+    String visitId;
 
     @NotNull
     Long dentistId;
@@ -42,11 +43,11 @@ public class DentistVisitDTO {
         this.visitTime = visitTime;
     }
 
-    public String getDentistName() {
-        return dentistName;
+    public String getVisitId() {
+        return visitId;
     }
 
-    public void setDentistName(String dentistName) {
-        this.dentistName = dentistName;
+    public void setVisitId(String visitId) {
+        this.visitId = visitId;
     }
 }

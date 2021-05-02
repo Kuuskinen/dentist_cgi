@@ -1,7 +1,5 @@
 package com.cgi.dentistapp.entity;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -16,10 +14,11 @@ public class DentistVisitEntity {
     @Column(name = "DATE", nullable = false)
     private Date date;
 
-    /*@Column(name = "DENTIST_ID", nullable = false)
-    private String name;*/
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "dentist_id")
     private DentistEntity dentistEntity;
 
@@ -31,12 +30,16 @@ public class DentistVisitEntity {
         return date;
     }
 
-    public Date setDate(Date date){
-        return this.date = date;
+    public void setDate(Date date){
+        this.date = date;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(long newId) {
+        this.id = newId;
     }
 
     public DentistEntity getDentistEntity() {
@@ -45,5 +48,13 @@ public class DentistVisitEntity {
 
     public void setDentistEntity(DentistEntity dentistEntity) {
         this.dentistEntity = dentistEntity;
+    }
+
+    public Long getDentistId() {
+        return dentistEntity.getId();
+    }
+
+    public void setDentistID(long newId) {
+        this.dentistEntity.setId(newId);
     }
 }

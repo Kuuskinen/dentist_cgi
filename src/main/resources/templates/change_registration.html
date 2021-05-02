@@ -1,0 +1,36 @@
+<html>
+<head>
+    <title>Registreeringu muutmine</title>
+</head>
+<body>
+<h2>Registreeringu muutmine</h2>
+<table>
+    <form action="#" th:action="@{/change}" th:object="${dentistVisitDTO}" method="post">
+        <table>
+            <tr>
+                <td><p th:text="#{dentist.name}">dentist.name</p></td>
+                <td>
+                    <select th:field="*{dentistId}">
+                        <option th:each="dentist : ${dentists}" th:value="${dentist.id}" th:text="${dentist.name}"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><p th:text="#{visit.date}">visit.date</p></td>
+                <td><input type="text" th:field="*{visitTime}"/></td>
+                <td><input type="text" th:field="*{visitId}" style="display: none" /></td>
+                <td th:if="${#fields.hasErrors('visitTime')}" th:errors="*{visitTime}">date.error</td>
+            </tr>
+            <tr>
+                <td><p th:text="#{visit.time}">visit.time</p></td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="submit" th:text="#{register.visit}"></button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</table>
+</body>
+</html>

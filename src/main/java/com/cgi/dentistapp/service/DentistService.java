@@ -15,17 +15,12 @@ public class DentistService {
     @Autowired
     DentistRepository dentistRepository;
 
-    public List<String> getAllDentistsAsStrings() {
-        List<DentistEntity> dentistEntities = dentistRepository.findAll();
-        List<String> dentistNames = new ArrayList<>();
-        for (DentistEntity dentistEntity : dentistEntities) {
-            dentistNames.add(dentistEntity.getName());
-        }
-        return dentistNames;
-    }
-
     public List<DentistEntity> getAllDentists() {
         return dentistRepository.findAll();
+    }
+
+    public DentistEntity getDentist(long id) {
+        return dentistRepository.getOne(id);
     }
 
 }
