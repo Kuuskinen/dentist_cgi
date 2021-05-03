@@ -1,5 +1,6 @@
 package com.cgi.dentistapp.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
@@ -7,15 +8,17 @@ import java.util.Date;
 
 public class DentistVisitDTO {
 
-    String dentistName;
-
     String visitId;
 
     @NotNull
     Long dentistId;
 
+    //@NotNull
+    //@DateTimeFormat(pattern = "dd.MM.yyyy")
+    //@JsonFormat(pattern="yyyy/MM/dd")
+
     @NotNull
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     Date visitTime;
 
     public DentistVisitDTO() {

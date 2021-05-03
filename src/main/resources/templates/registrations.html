@@ -2,28 +2,33 @@
 <head>
     <title>Registreeringud</title>
     <script type="text/javascript" th:src="@{visitMethods.js}"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/yolo.css" th:href="@{/css/yolo.css}"/>
 </head>
 <body>
-<p>THE EAGLE HAS WINGS</p>
+<h3 th:text="#{main.title}"></h3>
+<div class="page_links">
+    <a class="link" th:href="@{/}" th:text="#{main.page}"></a>
+</div>
 <!--REF: https://www.baeldung.com/thymeleaf-list -->
-<table>
-    <tr>
-        <th>
-            <td><p>ID</p></td>
-            <td><p th:text="#{dentist.name}">dentist.name</p></td>
-            <td><p th:text="#{visit.date}">visit.date</p></td>
-        </th>
-    </tr>
-    <tr th:if="${visits == null or visits.isEmpty()}">
-        <td><span th:text="#{none.visit}"></span></td>
-    </tr>
-    <tr th:each="visit : ${visits}">
-        <td><span th:text="${visit.id}"></span></td>
-        <td><span th:text="${visit.date}"></span></td>
-        <td><span th:text="${visit.dentistEntity.name}"></span></td>
-        <td><button th:text="#{delete.visit}" th:onclick="'javascript:deleteVisit(' + ${visit.id} + ')'"></button></td>
-        <td><a th:href="@{'/change_registration/' + ${visit.id}}" th:text="#{update.visit}"></a></td>
-    </tr>
-</table>
+<div class="registrations_table">
+    <table>
+        <tr>
+            <th><p th:text="#{visit.date}">visit.date</p></th>
+            <th><p th:text="#{dentist.name}">dentist.name</p></th>
+        </tr>
+        <tr th:if="${visits == null or visits.isEmpty()}">
+            <td><span th:text="#{none.visit}"></span></td>
+        </tr>
+        <tr th:each="visit : ${visits}">
+
+            <td class="registrations_td"><span th:text="${visit.date}"></span></td>
+            <td class="registrations_td"><span th:text="${visit.dentistEntity.name}"></span></td>
+            <td class="registrations_td"><button th:text="#{delete.visit}" th:onclick="'javascript:deleteVisit(' + ${visit.id} + ')'"></button></td>
+            <td class="registrations_td"><a th:href="@{'/change_registration/' + ${visit.id}}" th:text="#{update.visit}"></a></td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>

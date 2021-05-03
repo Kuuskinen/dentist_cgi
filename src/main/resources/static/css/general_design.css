@@ -1,0 +1,48 @@
+body {
+    background-color: #ebebe0;
+}
+
+.reg_form {
+    max-width: 500px;
+    margin: auto;
+}
+
+.registrations_table {
+    max-width: 600px;
+    margin: auto;
+}
+
+.registrations_td {
+    text-align: left;
+    padding: 6px;
+    border: 1px solid darkgrey;
+}
+
+.registrations_th {
+    text-align: left;
+    padding: 6px;
+}
+
+h4 {
+    text-align: center;
+}
+
+h3 {
+    text-align: center;
+}
+
+.page_links {
+    alignment: center;
+    text-align: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.link {
+    color: #4d4d4d;
+}
+
+form {
+    background-color: #d7d7c1;
+    padding: 20px;
+}
