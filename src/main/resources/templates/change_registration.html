@@ -1,36 +1,46 @@
 <html>
 <head>
-    <title>Registreeringu muutmine</title>
+    <title th:text="#{modify_visit.page}"></title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/general_design.css" th:href="@{/css/general_design.css}"/>
 </head>
 <body>
-<h2>Registreeringu muutmine</h2>
-<table>
-    <form action="#" th:action="@{/change}" th:object="${dentistVisitDTO}" method="post">
-        <table>
-            <tr>
-                <td><p th:text="#{dentist.name}">dentist.name</p></td>
-                <td>
-                    <select th:field="*{dentistId}">
-                        <option th:each="dentist : ${dentists}" th:value="${dentist.id}" th:text="${dentist.name}"></option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td><p th:text="#{visit.date}">visit.date</p></td>
-                <td><input type="text" th:field="*{visitTime}"/></td>
-                <td><input type="text" th:field="*{visitId}" style="display: none" /></td>
-                <td th:if="${#fields.hasErrors('visitTime')}" th:errors="*{visitTime}">date.error</td>
-            </tr>
-            <tr>
-                <td><p th:text="#{visit.time}">visit.time</p></td>
-            </tr>
-            <tr>
-                <td>
-                    <button type="submit" th:text="#{register.visit}"></button>
-                </td>
-            </tr>
-        </table>
-    </form>
-</table>
+<div>
+<h3 th:text="#{main.title}"></h3>
+<div class="page_links">
+    <a class="link" th:href="@{/}" th:text="#{main.page}"></a>
+    <a class="link" th:href="@{/registrations.html}" th:text="#{registrations.page}"></a>
+</div>
+    <table>
+        <form action="#" th:action="@{/change}" th:object="${dentistVisitDTO}" method="post">
+            <table>
+                <tr>
+                    <td><p th:text="#{dentist.name}">dentist.name</p></td>
+                    <td>
+                        <select th:field="*{dentistId}">
+                            <option th:each="dentist : ${dentists}" th:value="${dentist.id}" th:text="${dentist.name}"></option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><p th:text="#{visit.date}">visit.date</p></td>
+                    <td><input type="date" th:field="*{visitTime}"/></td>
+                    <td><input type="text" th:field="*{visitId}" style="display: none" /></td>
+                    <td th:if="${#fields.hasErrors('visitTime')}" th:errors="*{visitTime}">date.error</td>
+                </tr>
+                <tr>
+                    <td><p th:text="#{visit.clock}">visit.time</p></td>
+                    <td><input type="time" th:field="*{visitClock}"/></td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="submit" th:text="#{register.visit}"></button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </table>
+</div>
 </body>
 </html>

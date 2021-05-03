@@ -15,6 +15,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 
 @Controller
 @EnableAutoConfiguration
@@ -40,17 +41,14 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
         return "form";
     }
 
-    //NEEDS TO BE ADDED: https://www.baeldung.com/spring-boot-custom-error-page
-
     @PostMapping("/")
     public String postRegisterForm(@Valid DentistVisitDTO dentistVisitDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            System.out.println("POST REGISTER FORM");
-            System.out.println(dentistVisitDTO.getVisitTime());
             return "form";
        }
 
-        dentistVisitService.addVisit(dentistVisitDTO.getDentistId(), dentistVisitDTO.getVisitTime());
+        LocalDateTime localDateTime = LocalDateTime.of(dentistVisitDTO.getVisitTime(),dentistVisitDTO.getVisitClock());
+        dentistVisitService.addVisit(dentistVisitDTO.getDentistId(), localDateTime);
         return "redirect:/results";
     }
 
@@ -82,7 +80,11 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
     private DentistVisitDTO mapVisitEntityToVisitDTO(DentistVisitEntity entity) {
         DentistVisitDTO dto = new DentistVisitDTO();
         dto.setDentistId(entity.getDentistId());
-        dto.setVisitTime(entity.getDate());
+
+        LocalDateTime dateToLDT = dentistVisitService.convertToLocalDateTimeViaInstant(entity.getDate());
+
+        dto.setVisitTime(dateToLDT.toLocalDate());
+        dto.setVisitClock(dateToLDT.toLocalTime());
 
         String visitIdAsString = String.valueOf(entity.getId());
         dto.setVisitId(visitIdAsString);

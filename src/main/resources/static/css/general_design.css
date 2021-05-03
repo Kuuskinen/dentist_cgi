@@ -8,18 +8,16 @@ body {
 }
 
 .registrations_table {
-    max-width: 600px;
-    margin: auto;
+    max-width: 800px;
 }
 
-.registrations_td {
-    text-align: left;
-    padding: 6px;
+.registrations_header {
+    padding-top: 15px;
+    font-weight: bold;
+}
+
+.registrations_tr {
     border: 1px solid darkgrey;
-}
-
-.registrations_th {
-    text-align: left;
     padding: 6px;
 }
 
@@ -34,12 +32,16 @@ h3 {
 .page_links {
     alignment: center;
     text-align: center;
+    border: 1px solid darkgrey;
     padding-top: 15px;
     padding-bottom: 15px;
 }
 
 .link {
     color: #4d4d4d;
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: medium;
 }
 
 form {

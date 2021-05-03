@@ -1,5 +1,18 @@
 <html>
+<head>
+    <title th:text="#{confirmed.page}"></title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/general_design.css" th:href="@{/css/general_design.css}"/>
+</head>
 <body>
-<p th:text="#{registration.ok}">registration.ok</p>
+<div>
+    <h3 th:text="#{main.title}"></h3>
+    <div class="page_links">
+        <a class="link" th:href="@{/}" th:text="#{main.page}"></a>
+        <a class="link" th:href="@{/registrations.html}" th:text="#{registrations.page}"></a>
+    </div>
+    <p style="text-align: center" th:text="#{registration.ok}">registration.ok</p>
+</div>
 </body>
 </html>

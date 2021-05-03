@@ -1,9 +1,10 @@
 package com.cgi.dentistapp.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 
 public class DentistVisitDTO {
@@ -13,19 +14,32 @@ public class DentistVisitDTO {
     @NotNull
     Long dentistId;
 
-    //@NotNull
-    //@DateTimeFormat(pattern = "dd.MM.yyyy")
-    //@JsonFormat(pattern="yyyy/MM/dd")
-
     @NotNull
     @DateTimeFormat(pattern="yyyy-MM-dd")
-    Date visitTime;
+    LocalDate visitTime;
+
+    @NotNull
+    LocalTime visitClock;
+
+    public DentistVisitDTO(Long dentistId, LocalDate visitTime, LocalTime visitClock) {
+        this.dentistId = dentistId;
+        this.visitTime = visitTime;
+        this.visitClock = visitClock;
+    }
+
+    public LocalTime getVisitClock() {
+        return visitClock;
+    }
+
+    public void setVisitClock(LocalTime visitClock) {
+        this.visitClock = visitClock;
+    }
 
     public DentistVisitDTO() {
 
     }
 
-    public DentistVisitDTO(Long dentistId, Date visitTime) {
+    public DentistVisitDTO(Long dentistId, LocalDate visitTime) {
         this.dentistId = dentistId;
         this.visitTime = visitTime;
     }
@@ -38,11 +52,11 @@ public class DentistVisitDTO {
         this.dentistId = dentistId;
     }
 
-    public Date getVisitTime() {
+    public LocalDate getVisitTime() {
         return visitTime;
     }
 
-    public void setVisitTime(Date visitTime) {
+    public void setVisitTime(LocalDate visitTime) {
         this.visitTime = visitTime;
     }
 

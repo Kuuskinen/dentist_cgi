@@ -5,9 +5,10 @@ import com.cgi.dentistapp.entity.DentistEntity;
 import com.cgi.dentistapp.entity.DentistVisitEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
@@ -22,11 +23,14 @@ public class DentistVisitService {
     private DentistService dentistService;
 
     @Transactional
-    public void addVisit(Long dentistId, Date visitTime) {
+    public void addVisit(Long dentistId, LocalDateTime visitTime) {
         DentistVisitEntity dentistVisitEntity = new DentistVisitEntity();
         dentistVisitEntity.setDentistEntity(new DentistEntity());
         dentistVisitEntity.getDentistEntity().setId(dentistId);
-        dentistVisitEntity.setDate(visitTime);
+
+        Date convertedToDate = convertToDateViaInstant(visitTime);
+        dentistVisitEntity.setDate(convertedToDate);
+
         visitRepository.save(dentistVisitEntity);
     }
 
@@ -35,8 +39,6 @@ public class DentistVisitService {
     }
 
     public void deleteVisit(String id) {
-        System.out.println("DELETE VISIT");
-        System.out.println(id);
         long idAsLong = Long.valueOf(id);
         visitRepository.delete(idAsLong);
     }
@@ -49,10 +51,28 @@ public class DentistVisitService {
     public void changeVisit(Long visitId, DentistVisitDTO dentistVisitDTO) {
         DentistVisitEntity dentistVisitEntity = visitRepository.findOne(visitId);
 
-        dentistVisitEntity.setDate(dentistVisitDTO.getVisitTime());
+        LocalDateTime localDateTime = LocalDateTime.of(dentistVisitDTO.getVisitTime(),dentistVisitDTO.getVisitClock());
+
+        Date convertedToDate = convertToDateViaInstant(localDateTime);
+        dentistVisitEntity.setDate(convertedToDate);
+
         DentistEntity newDentist = dentistService.getDentist(dentistVisitDTO.getDentistId());
         
         dentistVisitEntity.setDentistEntity(newDentist);
         visitRepository.save(dentistVisitEntity);
+    }
+
+    //REF: https://www.baeldung.com/java-date-to-localdate-and-localdatetime
+    public LocalDateTime convertToLocalDateTimeViaInstant(Date dateToConvert) {
+        return dateToConvert.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
+    }
+
+    //REF: https://www.baeldung.com/java-date-to-localdate-and-localdatetime
+    Date convertToDateViaInstant(LocalDateTime dateToConvert) {
+        return java.util.Date
+                .from(dateToConvert.atZone(ZoneId.systemDefault())
+                        .toInstant());
     }
 }

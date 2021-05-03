@@ -14,12 +14,10 @@ INSERT INTO dentists (name) VALUES ( 'Mark Watney' );
 
 CREATE TABLE dentist_visit (
     id LONG AUTO_INCREMENT PRIMARY KEY,
-    date DATE NOT NULL,
+    date TIMESTAMP NOT NULL,
     dentist_id LONG NOT NULL,
     foreign key (dentist_id) REFERENCES dentists(id)
 );
-
-//ALTER TABLE dentist_visit ADD FOREIGN KEY (dentist_id) REFERENCES dentists(id);
 
 INSERT INTO dentist_visit (date, dentist_id) VALUES ('2021-05-03', 2 );
 INSERT INTO dentist_visit (date, dentist_id) VALUES ('2021-05-08', 3 );

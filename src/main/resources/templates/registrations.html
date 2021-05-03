@@ -1,34 +1,32 @@
 <html>
 <head>
-    <title>Registreeringud</title>
+    <title th:text="#{registrations.page}"></title>
     <script type="text/javascript" th:src="@{visitMethods.js}"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/css/yolo.css" th:href="@{/css/yolo.css}"/>
+    <link rel="stylesheet" href="/css/general_design.css" th:href="@{/css/general_design.css}"/>
 </head>
 <body>
-<h3 th:text="#{main.title}"></h3>
-<div class="page_links">
-    <a class="link" th:href="@{/}" th:text="#{main.page}"></a>
-</div>
-<!--REF: https://www.baeldung.com/thymeleaf-list -->
-<div class="registrations_table">
-    <table>
-        <tr>
-            <th><p th:text="#{visit.date}">visit.date</p></th>
-            <th><p th:text="#{dentist.name}">dentist.name</p></th>
-        </tr>
-        <tr th:if="${visits == null or visits.isEmpty()}">
-            <td><span th:text="#{none.visit}"></span></td>
-        </tr>
-        <tr th:each="visit : ${visits}">
-
-            <td class="registrations_td"><span th:text="${visit.date}"></span></td>
-            <td class="registrations_td"><span th:text="${visit.dentistEntity.name}"></span></td>
-            <td class="registrations_td"><button th:text="#{delete.visit}" th:onclick="'javascript:deleteVisit(' + ${visit.id} + ')'"></button></td>
-            <td class="registrations_td"><a th:href="@{'/change_registration/' + ${visit.id}}" th:text="#{update.visit}"></a></td>
-        </tr>
-    </table>
+<div>
+    <h3 th:text="#{main.title}"></h3>
+    <div class="page_links">
+        <a class="link" th:href="@{/}" th:text="#{main.page}"></a>
+    </div>
+    <div class="registrations_table container">
+        <div class="registrations_header row">
+            <div class="col-md-3"><p th:text="#{visit.date}">visit.date</p></div>
+            <div class="col-md-3"><p th:text="#{dentist.name}">dentist.name</p></div>
+        </div>
+        <div class="row" th:if="${visits == null or visits.isEmpty()}">
+            <div class="col-md-12"><span th:text="#{none.visit}"></span></div>
+        </div>
+        <div class="registrations_tr row" th:each="visit : ${visits}">
+            <div  class="registrations_td col-md-3"><span th:text="${visit.date}"></span></div>
+            <div  class="col-md-3"><span th:text="${visit.dentistEntity.name}"></span></div>
+            <div  class="registrations_delete col-md-3"><button th:text="#{delete.visit}" th:onclick="'javascript:deleteVisit(' + ${visit.id} + ')'"></button></div>
+            <div  class="col-md-3"><a th:href="@{'/change_registration/' + ${visit.id}}" th:text="#{update.visit}"></a></div>
+        </div>
+    </div>
 </div>
 </body>
 </html>
