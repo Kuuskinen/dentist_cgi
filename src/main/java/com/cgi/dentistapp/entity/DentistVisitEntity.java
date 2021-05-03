@@ -14,17 +14,9 @@ public class DentistVisitEntity {
     @Column(name = "DATE", nullable = false)
     private Date date;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     @ManyToOne
     @JoinColumn(name = "dentist_id")
     private DentistEntity dentistEntity;
-
-    public String getName() {
-        return dentistEntity.getName();
-    }
 
     public Date getDate() {
         return date;
@@ -52,9 +44,5 @@ public class DentistVisitEntity {
 
     public Long getDentistId() {
         return dentistEntity.getId();
-    }
-
-    public void setDentistID(long newId) {
-        this.dentistEntity.setId(newId);
     }
 }
